@@ -1,5 +1,11 @@
 <script setup>
 import { ref, computed } from 'vue';
+
+import { useCounterStore } from '../stores/counter';
+
+import Counter from '@/components/Counter.vue';
+
+const storeCounter = useCounterStore();
   const count = ref(0);
 
   const increaseCount = () => {
@@ -24,17 +30,26 @@ import { ref, computed } from 'vue';
 <template>
 <div class="home">
   <div class="count">
-    {{ count }}
+    {{ storeCounter.count }}
   </div>
   <div class="buttons">
-    <button @click="decreamentCount">-</button>
-    <button @click="increaseCount">+</button>
+    <button @click="storeCounter.decreaseCount">-</button>
+    <button @click="storeCounter.increaseCount">+</button>
   </div>
   <hr>
   <div>
-    This Counter is: {{ oddOrEven }}
+    This Counter is: {{ storeCounter.oddOrEven }}
+  </div>
+  <hr>
+  <div>
+    <h3>Edit Counter: </h3>
+    <input 
+    v-model="storeCounter.count"
+    type="number">
   </div>
 </div>
+
+<Counter></Counter>
 </template>
 
 <style scoped>
